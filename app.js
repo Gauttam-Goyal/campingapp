@@ -22,7 +22,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const {isLoggedIn}=require("./middleware.js")
-const dburl='mongodb://localhost:27017/yelp-camp';
+const dburl=process.env.DB_URL;
 const MongoDBStore=require('connect-mongo')(session);
 
 mongoose.connect(dburl);
