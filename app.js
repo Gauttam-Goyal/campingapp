@@ -23,6 +23,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const {isLoggedIn}=require("./middleware.js")
 const dburl=process.env.DB_URL;
+const secret=process.env.SECRET;
 const MongoDBStore=require('connect-mongo')(session);
 
 mongoose.connect(dburl);
@@ -42,12 +43,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const store = new MongoDBStore({
     url: dburl,
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     touchAfter: 24 * 60 * 60
 });
 const sessionConfig = {
     store,
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
